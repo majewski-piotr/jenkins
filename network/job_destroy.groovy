@@ -12,14 +12,14 @@ pipelineJob('network/destroy') {
                             }
                         }
                         stage('Terraform Init') {
-                            steps withCredentials([[\$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-terraform']]) {
+                            steps withAWS(credentials: 'aws-terraform') {
                                 dir('network') {
                                     sh 'terraform init'
                                 }
                             }
                         }
                         stage('Terraform Plan Destroy') {
-                            steps withCredentials([[\$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-terraform']]) {
+                            steps withAWS(credentials: 'aws-terraform') {
                                 dir('network') {
                                     sh 'terraform plan -destroy -var-file="../global.tfvars" -out=tfplan.destroy.out'
                                     archiveArtifacts artifacts: 'tfplan.destroy.out', fingerprint: true
@@ -32,7 +32,7 @@ pipelineJob('network/destroy') {
                             }
                         }
                         stage('Terraform Destroy') {
-                            steps withCredentials([[\$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-terraform']]) {
+                            steps withAWS(credentials: 'aws-terraform') {
                                 dir('network') {
                                     sh 'terraform apply tfplan.destroy.out'
                                 }

@@ -12,15 +12,15 @@ pipelineJob('network/apply') {
                             }
                         }
                         stage('Terraform Init') {
-                            steps withCredentials([[\$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-terraform']]) {
+                            steps withAWS(credentials: 'aws-terraform') {
                                 // Change into the network directory and initialize Terraform
                                 dir('network') {
                                     sh 'terraform init'
                                 }
                             }
                         }
-                        stage('Terraform Plan') withCredentials([[\$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-terraform']]) {
-                            steps {
+                        stage('Terraform Plan') {
+                            steps withAWS(credentials: 'aws-terraform') {
                                 dir('network') {
                                     sh 'terraform plan -var-file="../global.tfvars" -out=tfplan.out'
                                     archiveArtifacts artifacts: 'tfplan.out', fingerprint: true
@@ -33,8 +33,8 @@ pipelineJob('network/apply') {
                                 input message: 'Review the Terraform plan output. Approve to proceed with apply?', ok: 'Apply'
                             }
                         }
-                        stage('Terraform Apply') withCredentials([[\$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-terraform']]) {
-                            steps {
+                        stage('Terraform Apply') {
+                            steps withAWS(credentials: 'aws-terraform') {
                                 dir('network') {
                                     // Apply the Terraform plan with the global variable file
                                     sh 'terraform apply -var-file="../global.tfvars" tfplan.out'
