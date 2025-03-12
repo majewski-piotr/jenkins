@@ -4,11 +4,14 @@ This repository contains Job DSL scripts used to define and manage Jenkins jobs 
 
 ## Repository Structure
 
+
+```
 .
 ├── project1/
-│   ├── job1.groovy      # Example job DSL script for job1
-│   └── job2.groovy      # Example job DSL script for job2
-├── README.md            # This file
+│   ├── job1.groovy  # Example job DSL script for job1
+│   └── job2.groovy  # Example job DSL script for job2
+├── README.md       # This file
+```
 
 - **jobs/**: Contains all the Job DSL Groovy scripts. Each script defines one or more Jenkins jobs.
 - **README.md**: Provides an overview and instructions for using the repository.
