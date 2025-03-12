@@ -15,7 +15,7 @@ pipelineJob('network/destroy') {
                             steps {
                                 withAWS(credentials: 'aws-terraform') {
                                     dir('network') {
-                                        sh 'terraform init'
+                                        sh 'terraform init -no-color'
                                     }
                                 }
                             }
@@ -24,7 +24,7 @@ pipelineJob('network/destroy') {
                             steps {
                                 withAWS(credentials: 'aws-terraform') {
                                     dir('network') {
-                                        sh 'terraform plan -destroy -var-file="../global.tfvars" -out=tfplan.destroy.out'
+                                        sh 'terraform plan -destroy -var-file="../global.tfvars" -out=tfplan.destroy.out -no-color'
                                         archiveArtifacts artifacts: 'tfplan.destroy.out', fingerprint: true
                                     }
                                 }
@@ -39,7 +39,7 @@ pipelineJob('network/destroy') {
                             steps {
                                 withAWS(credentials: 'aws-terraform') {
                                     dir('network') {
-                                        sh 'terraform apply tfplan.destroy.out'
+                                        sh 'terraform apply tfplan.destroy.out -no-color'
                                     }
                                 }
                             }

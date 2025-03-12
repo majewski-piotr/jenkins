@@ -15,7 +15,7 @@ pipelineJob('network/apply') {
                             steps {
                                 withAWS(credentials: 'aws-terraform') {
                                     dir('network') {
-                                        sh 'terraform init'
+                                        sh 'terraform init -no-color'
                                     }
                                 }
                             }
@@ -24,7 +24,7 @@ pipelineJob('network/apply') {
                             steps {
                                 withAWS(credentials: 'aws-terraform') {
                                     dir('network') {
-                                        sh 'terraform plan -var-file="../global.tfvars" -out=tfplan.out'
+                                        sh 'terraform plan -var-file="../global.tfvars" -out=tfplan.out -no-color'
                                         archiveArtifacts artifacts: 'tfplan.out', fingerprint: true
                                     }
                                 }
@@ -39,7 +39,7 @@ pipelineJob('network/apply') {
                             steps {
                                 withAWS(credentials: 'aws-terraform') {
                                     dir('network') {
-                                        sh 'terraform apply -var-file="../global.tfvars" tfplan.out'
+                                        sh 'terraform apply tfplan.out -no-color'
                                     }
                                 }
                             }
