@@ -1,5 +1,5 @@
-job('project1/job1') {
-    description('A simple example job')
+job('project1/job2') {
+    description('A simple example job 2')
     triggers {
         scm('H/15 * * * *')
     }
