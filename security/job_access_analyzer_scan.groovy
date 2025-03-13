@@ -2,7 +2,7 @@ pipelineJob('network/test-connectivity') {
   description('Connectivity tests using AWS CLI with Terraform outputs, split into stages with mandatory cleanup')
   definition {
     cps {
-      script("""
+      script('''
         pipeline {
           agent any
 
@@ -163,7 +163,7 @@ pipelineJob('network/test-connectivity') {
             }
           }
         }
-      """)
+      ''')
     }
   }
 }
