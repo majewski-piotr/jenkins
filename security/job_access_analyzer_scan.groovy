@@ -18,7 +18,6 @@ pipelineJob('network/test-connectivity') {
               steps {
                 withAWS(credentials: 'aws-terraform') {
                   sh '''
-                    #!/bin/bash
                     set -e
 
                     echo "Loading Terraform outputs..."
@@ -63,7 +62,6 @@ pipelineJob('network/test-connectivity') {
               steps {
                 withAWS(credentials: 'aws-terraform') {
                   sh '''
-                    #!/bin/bash
                     set -e
 
                     SUBNET_IDS_PUBLIC=$(terraform output -json subnet_ids_public | jq -r '.[]')
@@ -107,7 +105,6 @@ pipelineJob('network/test-connectivity') {
               steps {
                 withAWS(credentials: 'aws-terraform') {
                   sh '''
-                    #!/bin/bash
                     set -e
 
                     SUBNET_IDS_COMPUTE=$(terraform output -json subnet_ids_compute | jq -r '.[]')
@@ -148,7 +145,6 @@ pipelineJob('network/test-connectivity') {
               // Ensure cleanup always runs
               withAWS(credentials: 'aws-terraform') {
                 sh '''
-                  #!/bin/bash
                   set -e
                   echo "Starting cleanup of dummy ENIs..."
 

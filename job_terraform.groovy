@@ -1,4 +1,4 @@
-pipelineJob('apply') {
+pipelineJob('terraform-job') {
     description('Generic Terraform pipeline job with manual approval for Terraform apply or destroy')
     parameters {
         stringParam('GIT_URL', '', 'Git repository URL')
