@@ -32,17 +32,18 @@ pipeline {
     stages {
         stage('Checkout DSL Repository') {
             steps {
-                // Clone this repository. Replace the URL with your repository URL.
-                git url: 'https://github.com/your-username/your-jenkins-jobs-repo.git'
+                git url: 'https://github.com/majewski-piotr/jenkins.git', branch: 'main'
             }
         }
         stage('Process DSL Scripts') {
             steps {
-                // Process all DSL scripts found in the 'jobs' directory.
-                jobDsl targets: 'jobs/**/*.groovy',
-                       removedJobAction: 'IGNORE',  // Options: IGNORE, DELETE, or DISABLE
-                       removedViewAction: 'IGNORE'  // Options: IGNORE, DELETE
+                jobDsl targets: '**/*.groovy',
+                       sandbox: false,
+                       removedJobAction: 'DELETE',
+                       removedViewAction: 'DELETE',
+                       lookupStrategy: 'JENKINS_ROOT'
             }
         }
     }
 }
+

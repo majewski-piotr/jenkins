@@ -14,7 +14,7 @@ pipelineJob('security/destroy') {
                                           string(name: 'GIT_URL', value: 'https://github.com/majewski-piotr/aws-infra.git'),
                                           string(name: 'CREDENTIALS_ID', value: 'aws-terraform'),
                                           string(name: 'WORKING_DIR', value: 'security'),
-                                          booleanParam(name: 'DESTROY', value: false)
+                                          booleanParam(name: 'DESTROY', value: true)
                                       ],
                                       wait: true
                             }
