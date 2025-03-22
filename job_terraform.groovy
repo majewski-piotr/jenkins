@@ -5,6 +5,7 @@ pipelineJob('terraform-job') {
         stringParam('CREDENTIALS_ID', '', 'AWS Credentials ID to use')
         stringParam('WORKING_DIR', '', 'Directory containing Terraform code')
         booleanParam('DESTROY', false, 'Set to true to perform terraform destroy instead of apply')
+        booleanParam('AUTO_APPROVE', false, 'Set to true to bypass manual approval step')
     }
     definition {
         cps {
@@ -40,6 +41,9 @@ pipelineJob('terraform-job') {
                             }
                         }
                         stage('Manual Approval') {
+                            when {
+                                expression { return !params.AUTO_APPROVE }
+                            }
                             steps {
                                 input message: 'Review the Terraform plan output. Approve to proceed?', ok: 'Proceed'
                             }
