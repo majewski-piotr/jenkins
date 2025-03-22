@@ -45,6 +45,19 @@ pipelineJob('apply_all_infra') {
                                       wait: true
                             }
                         }
+                        stage('Build computing') {
+                            steps {
+                                build job: 'terraform-job',
+                                      parameters: [
+                                          string(name: 'GIT_URL', value: 'https://github.com/majewski-piotr/aws-infra.git'),
+                                          string(name: 'CREDENTIALS_ID', value: 'aws-terraform'),
+                                          string(name: 'WORKING_DIR', value: 'compute'),
+                                          booleanParam(name: 'DESTROY', value: false),
+                                          booleanParam(name: 'AUTO_APPROVE', value: true)
+                                      ],
+                                      wait: true
+                            }
+                        }
                     }
                 }
             """)
