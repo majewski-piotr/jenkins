@@ -1,5 +1,5 @@
-pipelineJob('access_analyzer/apply') {
-    description('job that builds network layer of aws infrastructure')
+pipelineJob('apply_all_infra') {
+    description('job that builds all infrastructure')
     definition {
         cps {
             script("""
